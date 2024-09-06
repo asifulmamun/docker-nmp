@@ -3,7 +3,8 @@ version: '3'
 services:
   nginx:
     build:
-      context: ./docker/nginx  # This points to the directory containing your custom Dockerfile for Nginx
+      context: ./docker/nginx  # Custom Dockerfile location
+    container_name: hybrid_nginx  # Custom name for the Nginx container
     volumes:
       - ./:/var/www
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
@@ -20,7 +21,8 @@ services:
 
   php-fpm:
     build:
-      context: './docker/php-fpm'  # Assuming this is your php-fpm Dockerfile
+      context: './docker/php-fpm'  # Custom Dockerfile location
+    container_name: hybrid_php_fpm  # Custom name for the PHP-FPM container
     volumes:
       - ./:/var/www:cached
     networks:
