@@ -2,7 +2,8 @@ version: '3'
 
 services:
   nginx:
-    image: nginx
+    build:
+      context: ./docker/nginx  # This points to the directory containing your custom Dockerfile for Nginx
     volumes:
       - ./:/var/www
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
@@ -14,24 +15,19 @@ services:
     environment:
       - NGINX_HOST=localhost
       - NGINX_PORT=9000
-    # networks:
-    #   - sail
+    networks:
+      - sail
 
+  php-fpm:
+    build:
+      context: './docker/php-fpm'  # Assuming this is your php-fpm Dockerfile
+    volumes:
+      - ./:/var/www:cached
+    networks:
+      - sail
+    expose:
+      - '9000'
 
-
-    # php-fpm:
-    #     build:
-    #         context: './docker/php-fpm'
-    #     volumes:
-    #         - ./:/var/www:cached
-    #     networks:
-    #         - sail
-    #     expose:
-    #         - '9000'
-
-
-
-# Network
-# networks:
-#     sail:
-#         driver: bridge
+networks:
+  sail:
+    driver: bridge
