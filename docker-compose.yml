@@ -10,10 +10,10 @@ services:
       - ./docker/nginx/sites/:/etc/nginx/sites-available/
       - ./docker/logs/nginx/:/var/log/nginx
     ports:
-      - '80:80'
+      - '9000:9000'
     environment:
       - NGINX_HOST=localhost
-      - NGINX_PORT=80
+      - NGINX_PORT=9000
     # networks:
     #   - sail
 
